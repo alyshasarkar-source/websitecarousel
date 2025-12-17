@@ -5,7 +5,7 @@
   <title>Website Carousel</title>
   <style>
     body {
-      background-color: #302d2d; /* global background color */
+      background-color: #302d2d; /* full page background */
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
@@ -15,8 +15,8 @@
       min-height: 100vh; /* center vertically */
     }
     .carousel-container {
-      width: 80%; /* larger width */
-      max-width: 1000px; /* cap size for big screens */
+      width: 70%;
+      max-width: 900px;
       margin: auto;
       overflow: hidden;
       position: relative;
@@ -26,7 +26,7 @@
     }
     .carousel-slides {
       display: flex;
-      transition: transform 0.5s ease;
+      transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); /* smoother modern easing */
     }
     .carousel-item {
       min-width: 100%;
@@ -34,7 +34,8 @@
     }
     .carousel-item img {
       width: 100%;
-      height: auto;
+      height: 400px; /* rectangular shape */
+      object-fit: cover;
       display: block;
       border-radius: 4px;
     }
@@ -56,6 +57,21 @@
     .carousel-button.right {
       right: 15px;
     }
+
+    /* Responsive rules for mobile */
+    @media (max-width: 768px) {
+      .carousel-container {
+        width: 95%;
+        max-width: 100%;
+      }
+      .carousel-item img {
+        height: 250px; /* smaller rectangle for mobile */
+      }
+      .carousel-button {
+        font-size: 18px;
+        padding: 8px 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -67,46 +83,3 @@
       </div>
       <!-- Slide 2 -->
       <div class="carousel-item">
-        <img src="https://media.canva.com/v2/image-resize/format:JPG/height:550/quality:92/uri:ifs%3A%2F%2FM%2Fdcf601da-85a9-4115-bf57-dc2ac0c7c194/watermark:F/width:550?csig=AAAAAAAAAAAAAAAAAAAAAHgQxyuHfiRmZiN-ol3u2Ul6OZt8hgUGCJM5tpnPQ8i4&exp=1766003106&osig=AAAAAAAAAAAAAAAAAAAAALRSPwl5kQHhTNbvTZO88XVUF14_D9yFbDatHDUHv9j1&signer=media-rpc&x-canva-quality=thumbnail_large" alt="Testimonial 2">
-      </div>
-      <!-- Slide 3 -->
-      <div class="carousel-item">
-        <img src="https://media.canva.com/v2/image-resize/format:JPG/height:550/quality:92/uri:ifs%3A%2F%2FM%2Fda907bd1-89ae-4f17-b161-86521f2f29b7/watermark:F/width:550?csig=AAAAAAAAAAAAAAAAAAAAAKq8YcGAroPu_iQnyqK5AXTOPq320guxwZSephAB1gAA&exp=1766002708&osig=AAAAAAAAAAAAAAAAAAAAALR-oInqet2RUnB2bdQViL1IBPw_3ak8ZncomJs0Ap2c&signer=media-rpc&x-canva-quality=thumbnail_large" alt="Testimonial 3">
-      </div>
-    </div>
-    <!-- Navigation buttons -->
-    <button class="carousel-button left" onclick="moveSlide(-1)">❮</button>
-    <button class="carousel-button right" onclick="moveSlide(1)">❯</button>
-  </div>
-
-  <script>
-    let currentIndex = 0;
-    let autoPlayInterval;
-
-    function moveSlide(direction) {
-      const slides = document.querySelector('.carousel-slides');
-      const total = document.querySelectorAll('.carousel-item').length;
-      currentIndex = (currentIndex + direction + total) % total;
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    function startAutoPlay() {
-      autoPlayInterval = setInterval(() => {
-        moveSlide(1);
-      }, 4000); // 4 seconds
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayInterval);
-    }
-
-    // Start autoplay when page loads
-    startAutoPlay();
-
-    // Pause on hover
-    const container = document.querySelector('.carousel-container');
-    container.addEventListener('mouseenter', stopAutoPlay);
-    container.addEventListener('mouseleave', startAutoPlay);
-  </script>
-</body>
-</html>
